@@ -7,21 +7,17 @@ This repository contains reusable Terraform modules for provisioning cloud infra
 ```
 .
 ├── README.md
-├── modules
-│   ├── eks
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   ├── outputs.tf
-│   │   └── README.md
-│   ├── vpc
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   ├── outputs.tf
-│   │   └── README.md
-│   └── other-modules
-│       ├── module-name
-│       ├── ...
-│       └── README.md
+└── modules
+    ├── eks
+    │   ├── main.tf
+    │   ├── outputs.tf
+    │   └── variables.tf
+    └── vpc
+        ├── main.tf
+        ├── outputs.tf
+        └── variables.tf
+
+4 directories, 7 files
 ```
 
 ## Usage
