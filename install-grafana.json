@@ -1,5 +1,0 @@
-{
-    "url": "https://dl.grafana.com/oss/release/grafana-9.3.2.linux-amd64.tar.gz",
-    "grafana_home": "/home/ubuntu/",
-    "service_name": "grafana.service"
-}
