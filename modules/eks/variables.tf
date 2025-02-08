@@ -1,14 +1,35 @@
-variable "cluster_name" {
-  description = "Name of the EKS cluster"
-  type        = string
+variable "env" {
+  type = string
 }
 
-variable "vpc_id" {
-  description = "VPC ID where EKS should be deployed"
-  type        = string
+variable "type" {
+  type = string
 }
 
-variable "subnet_ids" {
-  description = "List of subnet IDs for EKS cluster"
-  type        = list(string)
+variable "project_name" {
+  type = string
+}
+
+variable "public_subnet_az1_id" {
+  type = string
+}
+
+variable "public_subnet_az2_id" {
+  type = string
+}
+
+variable "eks_security_group_id" {
+  type = string
+}
+
+variable "master_arn" {
+  type = string
+}
+
+variable "worker_arn" {
+  type = string
+}
+
+variable "instance_size" {
+  type = string
 }
