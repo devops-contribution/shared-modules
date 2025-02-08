@@ -12,12 +12,17 @@ This repository contains reusable Terraform modules for provisioning cloud infra
     │   ├── main.tf
     │   ├── outputs.tf
     │   └── variables.tf
+    ├── iam
+    │   ├── main.tf
+    │   └── outputs.tf
+    ├── security-group
+    │   ├── main.tf
+    │   ├── outputs.tf
+    │   └── variables.tf
     └── vpc
         ├── main.tf
         ├── outputs.tf
         └── variables.tf
-
-4 directories, 7 files
 ```
 
 ## Usage
