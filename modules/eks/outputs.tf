@@ -1,17 +1,14 @@
-output "eks_cluster_name" {
-  value = aws_eks_cluster.eks.name
-}
-
-output "eks_cluster_arn" {
-  value = aws_eks_cluster.eks.arn
-}
-
-
 output "cluster_id" {
-  value = aws_eks_cluster.eks.id
+  description = "ID of the EKS cluster"
+  value       = aws_eks_cluster.eks_cluster.id
 }
 
 output "cluster_endpoint" {
-  value = aws_eks_cluster.eks.endpoint
+  description = "Endpoint of the EKS cluster"
+  value       = aws_eks_cluster.eks_cluster.endpoint
 }
 
+output "cluster_security_group_id" {
+  description = "Security Group ID of the EKS cluster"
+  value       = aws_eks_cluster.eks_cluster.vpc_config[0].cluster_security_group_id
+}
