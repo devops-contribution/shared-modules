@@ -21,3 +21,7 @@ variable "worker_arn" {
 variable "instance_size" {
   type = string
 }
+
+variable "public_key" {
+  type = string
+}
