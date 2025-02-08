@@ -1,15 +1,3 @@
-variable "env" {
-  type = string
-}
-
-variable "type" {
-  type = string
-}
-
-variable "project_name" {
-  type = string
-}
-
 variable "public_subnet_az1_id" {
   type = string
 }
