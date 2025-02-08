@@ -2,6 +2,10 @@ resource "aws_vpc" "eks_vpc" {
   cidr_block           = var.vpc_cidr
   instance_tenancy     = "default"
   enable_dns_hostnames = true
+  
+  tags = {
+    Name = "terraform-vpc"
+  }
 }
 
 resource "aws_internet_gateway" "eks_internet_gateway" {

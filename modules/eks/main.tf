@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "eks" {
-  name     = "AWS-EKS"
+  name     = "terraform-aws-eks"
   role_arn = var.master_arn
 
   vpc_config {
