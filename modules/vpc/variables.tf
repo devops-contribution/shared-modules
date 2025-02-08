@@ -1,11 +1,3 @@
-variable "env" {
-  type = string
-}
-
-variable "type" {
-  type = string
-}
-
 variable "project_name" {
   type = string
 }
