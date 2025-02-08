@@ -33,10 +33,4 @@ resource "aws_security_group" "eks_security_group" {
     protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = {
-    Name = "${var.project_name}-EKS-security-group"
-    Env  = var.env
-    Type = var.type
-  }
 }
