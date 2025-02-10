@@ -78,4 +78,3 @@ server:
 EOF
   ]
 }
-~                    
