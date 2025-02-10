@@ -2,10 +2,6 @@ variable "name" {
   type = string
 }
 
-variable "version" {
-  type = string
-}
-
 variable "public_subnet_az1_id" {
   type = string
 }
