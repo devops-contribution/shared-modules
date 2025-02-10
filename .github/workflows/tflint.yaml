@@ -23,4 +23,4 @@ jobs:
         run: tflint --init
 
       - name: Run TFLint on All Modules
-        run: tflint --config .tflint.hcl --recursive modules/
+        run: tflint --config .tflint.hcl --chdir=modules/
