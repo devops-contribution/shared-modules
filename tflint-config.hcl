@@ -1,35 +1,54 @@
+# Enable the AWS plugin for TFLint
 plugin "aws" {
   enabled = true
   source  = "github.com/terraform-linters/tflint-ruleset-aws"
-  version = "0.4.0"
+  version = "0.24.1"
 }
 
-# Enable built-in AWS rules
+# General TFLint settings
+config {
+  recursive = true  # Scan all Terraform files in subdirectories
+}
+
+# Enable AWS rules to enforce best practices
 rule "aws_instance_invalid_type" {
   enabled = true
 }
 
+rule "aws_s3_bucket_public_access" {
+  enabled = true
+}
+
+rule "aws_security_group_open_ports" {
+  enabled = true
+}
+
+rule "aws_iam_policy_no_wildcard" {
+  enabled = true
+}
+
+# Ensure that security groups do not allow unrestricted access
 rule "aws_security_group_ingress_cidr_blocks" {
   enabled = true
 }
 
-# Custom rule: Ensure S3 Buckets are private
-rule "aws_s3_bucket_private" {
-  enabled = true
-}
-
-# Custom rule: Ensure tags are always defined
+# Enforce required tags for resources
 rule "terraform_module_tag_required" {
   enabled = true
   required_tags = ["Name", "Environment", "Owner"]
 }
 
-# Custom rule: Prevent usage of sensitive IAM actions
-rule "aws_iam_policy_restricted_actions" {
+# Prevent IAM roles from using excessive permissions
+rule "aws_iam_role_restricted_permissions" {
   enabled = true
   restricted_actions = [
-    "iam:*",         # Prevent wildcard permissions
-    "s3:*",          # Prevent full S3 access
-    "ec2:*"          # Prevent full EC2 access
+    "iam:*",
+    "s3:*"
   ]
+}
+
+# Ensure EKS clusters use recommended instance types
+rule "aws_eks_node_group_instance_types" {
+  enabled = true
+  allowed_types = ["t3.medium", "m5.large", "m5.xlarge"]
 }
