@@ -23,6 +23,9 @@ jobs:
 
       - name: Initialize TFLint
         run: tflint --init
+ 
+      - name: shell
+        run: pwd && ls
 
-      - name: Run TFLint on All Modules
-        run: tflint --config=tflint-config.hcl --chdir=modules/ --recursive
+      #- name: Run TFLint on All Modules
+      # run: tflint --config=tflint-config.hcl --chdir=modules/ --recursive

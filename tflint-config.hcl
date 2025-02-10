@@ -5,11 +5,6 @@ plugin "aws" {
   version = "0.24.1"
 }
 
-# General TFLint settings
-config {
-  recursive = true  # Scan all Terraform files in subdirectories
-}
-
 # Enable AWS rules to enforce best practices
 rule "aws_instance_invalid_type" {
   enabled = true
