@@ -1,5 +1,6 @@
 resource "aws_eks_cluster" "eks" {
   name     = "terraform-aws-eks"
+  required_version = "1.31"
   role_arn = var.master_arn
 
   vpc_config {
@@ -7,7 +8,7 @@ resource "aws_eks_cluster" "eks" {
   }
 }
 
-data "aws_availability_zones" "available_zones" {}
+#data "aws_availability_zones" "available_zones" {}
 
 resource "aws_key_pair" "eks_key" {
   key_name   = "eks-key-pair"
