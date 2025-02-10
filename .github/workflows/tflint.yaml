@@ -1,0 +1,26 @@
+name: TFLint Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  tflint:
+    name: Run TFLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install TFLint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+      - name: Initialize TFLint
+        run: tflint --init
+
+      - name: Run TFLint on All Modules
+        run: tflint --config .tflint.hcl --recursive modules/
