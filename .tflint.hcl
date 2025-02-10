@@ -1,7 +1,7 @@
 plugin "aws" {
   enabled = true
   source  = "github.com/terraform-linters/tflint-ruleset-aws"
-  version = "latest"
+  version = "0.4.0"
 }
 
 # Enable built-in AWS rules
