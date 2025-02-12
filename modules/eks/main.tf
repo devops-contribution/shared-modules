@@ -1,3 +1,7 @@
+terraform {
+  required_version = ">= 1.0" 
+}
+
 resource "aws_eks_cluster" "eks" {
   name     = "terraform-aws-eks"
   role_arn = var.master_arn

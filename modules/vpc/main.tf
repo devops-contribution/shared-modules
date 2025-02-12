@@ -1,3 +1,7 @@
+terraform {
+  required_version = ">= 1.0" 
+}
+
 resource "aws_vpc" "eks_vpc" {
   cidr_block           = var.vpc_cidr
   instance_tenancy     = "default"

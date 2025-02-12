@@ -1,3 +1,7 @@
+terraform {
+  required_version = ">= 1.0" 
+}
+
 resource "aws_security_group" "eks_security_group" {
   name   = "SH security group"
   vpc_id = var.vpc_id

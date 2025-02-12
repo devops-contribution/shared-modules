@@ -1,3 +1,7 @@
+terraform {
+  required_version = ">= 1.0" 
+}
+
 # Creating IAM role for Master Node
 resource "aws_iam_role" "master" {
   name = "EKS-Master"
