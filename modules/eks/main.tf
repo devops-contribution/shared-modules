@@ -1,5 +1,12 @@
 terraform {
   required_version = ">= 1.0" 
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"  # Allows any version 5.x.x
+    }
+  }
 }
 
 resource "aws_eks_cluster" "eks" {
