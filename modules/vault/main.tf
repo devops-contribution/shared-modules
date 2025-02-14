@@ -33,8 +33,8 @@ resource "aws_iam_policy" "vault_s3_policy" {
         "s3:ListBucket"
       ],
       "Resource": [
-        "arn:aws:s3:::vault-backend-bucket",
-        "arn:aws:s3:::vault-backend-bucket/*"
+        "arn:aws:s3:::custom-vault-data-bucket",
+        "arn:aws:s3:::custom-vault-data-bucket/*"
       ]
     }
   ]
