@@ -152,32 +152,35 @@ resource "aws_instance" "vault" {
     echo 'export PATH=$PATH:/usr/local/bin' | sudo tee -a /etc/profile
     source /etc/profile
 
-    # Enable and start Vault as a service
-    sudo tee /etc/systemd/system/vault.service <<EOF2
-  [Unit]
-  Description=Vault Server
-  Requires=network-online.target
-  After=network-online.target
+    # Create systemd service for Vault
+    sudo tee /etc/systemd/system/vault.service <<EOT
+    [Unit]
+    Description=Vault Server
+    Requires=network-online.target
+    After=network-online.target
 
-  [Service]
-  User=root
-  Group=root
-  ExecStart=/usr/bin/vault server -config=/etc/vault.hcl
-  ExecReload=/bin/kill --signal HUP \$MAINPID
-  Restart=on-failure
-  LimitNOFILE=65536
+    [Service]
+    User=root
+    Group=root
+    ExecStart=/usr/bin/vault server -config=/etc/vault.hcl
+    ExecReload=/bin/kill --signal HUP \$MAINPID
+    Restart=on-failure
+    LimitNOFILE=65536
 
-  [Install]
-  WantedBy=multi-user.target
-  EOF2
+    [Install]
+    WantedBy=multi-user.target
+    EOT
 
     # Reload systemd and start Vault
     sudo systemctl daemon-reload
     sudo systemctl enable vault
     sudo systemctl start vault
+
   EOF
 
   tags = {
     Name = "Vault-Server"
   }
 }
+
+
