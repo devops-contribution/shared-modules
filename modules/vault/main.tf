@@ -1,3 +1,14 @@
+terraform {
+  required_version = ">= 1.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"  # Allows any version 5.x.x
+    }
+  }
+}
+
 # S3 bucket for Vault storage
 resource "aws_s3_bucket" "vault_storage" {
   bucket = "vault-backend-bucket"
