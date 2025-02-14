@@ -44,7 +44,7 @@ EOF
 
 # IAM role to be assumed by Vault
 resource "aws_iam_role" "vault_role" {
-  name = "vault-role"
+  name = "role-for-vault"
 
   assume_role_policy = <<EOF
 {
