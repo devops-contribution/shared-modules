@@ -1,6 +1,7 @@
 # S3 bucket for Vault storage
 resource "aws_s3_bucket" "vault_storage" {
   bucket = "vault-backend-bucket"
+  force_destroy = true
 }
 
 # IAM policy for Vault to access the S3 bucket
@@ -60,6 +61,7 @@ resource "aws_iam_role_policy_attachment" "vault_policy_attach" {
 resource "aws_security_group" "vault_sg" {
   name        = "vault-security-group"
   description = "Allow Vault traffic"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 8200
@@ -103,6 +105,7 @@ resource "aws_instance" "vault" {
   instance_type = "t3.medium"
   iam_instance_profile = aws_iam_role.vault_role.name
   security_groups = [aws_security_group.vault_sg.name]
+  subnet_id       = var.subnet_id
 
   user_data = <<-EOF
     #!/bin/bash
