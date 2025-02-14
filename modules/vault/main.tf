@@ -134,18 +134,18 @@ resource "aws_instance" "vault" {
 
     # Create Vault configuration file
     cat <<EOT | sudo tee /etc/vault.hcl
-  storage "s3" {
-    bucket = "custom-vault-data-bucket"
-    region = "us-west-2"
-  }
+    storage "s3" {
+      bucket = "custom-vault-data-bucket"
+      region = "us-west-2"
+    }
 
-  listener "tcp" {
-    address     = "0.0.0.0:8200"
-    tls_disable = 1
-  }
+    listener "tcp" {
+      address     = "0.0.0.0:8200"
+      tls_disable = 1
+    }
 
-  ui = true
-  EOT
+    ui = true
+    EOT
 
     # Set Vault environment variables
     echo 'export VAULT_ADDR="http://127.0.0.1:8200"' | sudo tee -a /etc/profile
