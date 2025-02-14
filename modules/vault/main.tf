@@ -11,7 +11,7 @@ terraform {
 
 # S3 bucket for Vault storage
 resource "aws_s3_bucket" "vault_storage" {
-  bucket = "vault-data-bucket"
+  bucket = var.bucket_name
   force_destroy = true
 }
 
