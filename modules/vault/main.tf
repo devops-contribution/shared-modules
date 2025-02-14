@@ -4,14 +4,14 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"  # Allows any version 5.x.x
+      version = "~> 5.0" # Allows any version 5.x.x
     }
   }
 }
 
 # S3 bucket for Vault storage
 resource "aws_s3_bucket" "vault_storage" {
-  bucket = var.bucket_name
+  bucket        = var.bucket_name
   force_destroy = true
 }
 
@@ -80,7 +80,7 @@ resource "aws_security_group" "vault_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -112,24 +112,69 @@ resource "aws_iam_instance_profile" "vault_instance_profile" {
 
 # EC2 instance for Vault
 resource "aws_instance" "vault" {
-  ami           = data.aws_ami.latest_ubuntu.id
-  instance_type = "t3.medium"
-  iam_instance_profile = aws_iam_instance_profile.vault_instance_profile.name
+  ami                    = data.aws_ami.latest_ubuntu.id
+  instance_type          = "t3.medium"
+  iam_instance_profile   = aws_iam_instance_profile.vault_instance_profile.name
   vpc_security_group_ids = [aws_security_group.vault_sg.id]
-  subnet_id       = var.subnet_id
+  subnet_id              = var.subnet_id
+
 
   user_data = <<-EOF
     #!/bin/bash
+    set -e
+
+    # Update and install dependencies
     sudo apt update -y
     sudo apt install -y unzip jq
+
+    # Install Vault
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
     echo "deb https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
     sudo apt update && sudo apt install -y vault
-    echo "storage "s3" {
-      bucket = \"vault-backend-bucket\"
-      region = \"us-east-1\"
-    }" > /etc/vault.hcl
-    vault server -config=/etc/vault.hcl
+
+    # Create Vault configuration file
+    cat <<EOT | sudo tee /etc/vault.hcl
+  storage "s3" {
+    bucket = "custom-vault-data-bucket"
+    region = "us-west-2"
+  }
+
+  listener "tcp" {
+    address     = "0.0.0.0:8200"
+    tls_disable = 1
+  }
+
+  ui = true
+  EOT
+
+    # Set Vault environment variables
+    echo 'export VAULT_ADDR="http://127.0.0.1:8200"' | sudo tee -a /etc/profile
+    echo 'export PATH=$PATH:/usr/local/bin' | sudo tee -a /etc/profile
+    source /etc/profile
+
+    # Enable and start Vault as a service
+    sudo tee /etc/systemd/system/vault.service <<EOF2
+  [Unit]
+  Description=Vault Server
+  Requires=network-online.target
+  After=network-online.target
+
+  [Service]
+  User=root
+  Group=root
+  ExecStart=/usr/bin/vault server -config=/etc/vault.hcl
+  ExecReload=/bin/kill --signal HUP \$MAINPID
+  Restart=on-failure
+  LimitNOFILE=65536
+
+  [Install]
+  WantedBy=multi-user.target
+  EOF2
+
+    # Reload systemd and start Vault
+    sudo systemctl daemon-reload
+    sudo systemctl enable vault
+    sudo systemctl start vault
   EOF
 
   tags = {
