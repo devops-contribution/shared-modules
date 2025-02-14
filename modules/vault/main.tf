@@ -119,7 +119,7 @@ resource "aws_instance" "vault" {
   subnet_id              = var.subnet_id
 
 
-  user_data = file("install.sh")
+  user_data = file("${path.module}/install.sh")
 
   tags = {
     Name = "Vault-Server"
