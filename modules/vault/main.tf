@@ -105,16 +105,16 @@ data "aws_ami" "latest_ubuntu" {
   owners = ["099720109477"]
 }
 
-output "ubuntu_ami_id" {
-  value = data.aws_ami.latest_ubuntu.id
+resource "aws_iam_instance_profile" "vault_instance_profile" {
+  name = "vault-instance-profile"
+  role = aws_iam_role.vault_role.name
 }
-
 
 # EC2 instance for Vault
 resource "aws_instance" "vault" {
   ami           = data.aws_ami.latest_ubuntu.id
   instance_type = "t3.medium"
-  iam_instance_profile = aws_iam_role.vault_role.name
+  iam_instance_profile = aws_iam_instance_profile.vault_instance_profile.name
   security_groups = [aws_security_group.vault_sg.name]
   subnet_id       = var.subnet_id
 
