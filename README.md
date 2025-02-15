@@ -7,22 +7,39 @@ This repository contains reusable Terraform modules for provisioning cloud infra
 ```
 .
 ├── README.md
-└── modules
-    ├── eks
-    │   ├── main.tf
-    │   ├── outputs.tf
-    │   └── variables.tf
-    ├── iam
-    │   ├── main.tf
-    │   └── outputs.tf
-    ├── security-group
-    │   ├── main.tf
-    │   ├── outputs.tf
-    │   └── variables.tf
-    └── vpc
-        ├── main.tf
-        ├── outputs.tf
-        └── variables.tf
+├── external-secret.yaml
+├── modules
+│   ├── api-gateways
+│   │   ├── main.tf
+│   │   └── variables.tf
+│   ├── cognito
+│   │   ├── main.tf
+│   │   └── variables.tf
+│   ├── eks
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── iam
+│   │   ├── main.tf
+│   │   └── outputs.tf
+│   ├── s3
+│   │   ├── main.tf
+│   │   └── variables.tf
+│   ├── security-group
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── vault
+│   │   ├── install.sh
+│   │   ├── main.tf
+│   │   └── variables.tf
+│   └── vpc
+│       ├── main.tf
+│       ├── outputs.tf
+│       └── variables.tf
+└── secret-store.yaml
+
+10 directories, 23 files
 ```
 
 ## Usage
