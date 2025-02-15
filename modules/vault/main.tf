@@ -122,7 +122,7 @@ resource "aws_instance" "vault" {
   user_data = file("${path.module}/install.sh")
 
   tags = {
-    Name = "Vault-Server"
+    Name = "${var.customer}-Vault-Server"
   }
 }
 

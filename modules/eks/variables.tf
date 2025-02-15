@@ -25,3 +25,7 @@ variable "instance_size" {
 variable "public_key" {
   type = string
 }
+
+variable "customer" {
+  type = string
+}

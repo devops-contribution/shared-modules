@@ -16,7 +16,7 @@ resource "aws_vpc" "eks_vpc" {
   enable_dns_hostnames = true
   
   tags = {
-    Name = "terraform-vpc"
+    Name = "${var.customer}-terraform-vpc"
   }
 }
 
