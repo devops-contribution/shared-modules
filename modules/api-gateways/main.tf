@@ -33,7 +33,7 @@ resource "aws_apigatewayv2_route" "root_route" {
 # Integration for the "/" route
 resource "aws_apigatewayv2_integration" "root_integration" {
   api_id                 = aws_apigatewayv2_api.example.id
-  integration_type       = "HTTP"
+  integration_type       = "HTTP_PROXY"
   integration_uri        = var.alb_dns
   integration_method     = "GET"
   payload_format_version = "1.0"
@@ -42,7 +42,7 @@ resource "aws_apigatewayv2_integration" "root_integration" {
 # Integration for the "/api/v1/hi" route
 resource "aws_apigatewayv2_integration" "api_v1_hi_integration" {
   api_id                 = aws_apigatewayv2_api.example.id
-  integration_type       = "HTTP"
+  integration_type       = "HTTP_PROXY"
   integration_uri        = "${var.alb_dns}/api/v1/hi"
   integration_method     = "GET"
   payload_format_version = "1.0"
