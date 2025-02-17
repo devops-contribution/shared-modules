@@ -51,6 +51,6 @@ resource "aws_apigatewayv2_integration" "api_v1_hi_integration" {
 # "dev" stage for the HTTP API
 resource "aws_apigatewayv2_stage" "dev_stage" {
   api_id     = aws_apigatewayv2_api.example.id
-  stage_name = "dev"
+  name = "dev"
   auto_deploy = true
 }
