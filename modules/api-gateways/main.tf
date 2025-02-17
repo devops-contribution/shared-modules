@@ -11,7 +11,7 @@ terraform {
 
 # Create an HTTP API
 resource "aws_apigatewayv2_api" "example" {
-  name          = "example-http-api"
+  name          = "${var.customer}-http-api"
   protocol_type = "HTTP"
   description   = "Example HTTP API Gateway"
 }
