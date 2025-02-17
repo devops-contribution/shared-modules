@@ -5,3 +5,7 @@ variable "alb_dns" {
 variable "region" {
   type = string
 }
+
+variable "customer" {
+  type = string
+}
