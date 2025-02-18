@@ -52,7 +52,7 @@ resource "aws_apigatewayv2_integration" "root_integration" {
 resource "aws_apigatewayv2_integration" "api_v1_hi_integration" {
   api_id                 = aws_apigatewayv2_api.example.id
   integration_type       = "HTTP_PROXY"
-  integration_uri        = "${var.alb_dns}/api/v1/hi"
+  integration_uri        = var.alb_dns
   integration_method     = "GET"
   payload_format_version = "1.0"
   connection_type        = "VPC_LINK"
