@@ -14,7 +14,7 @@ resource "aws_eks_cluster" "eks" {
   role_arn = var.master_arn
 
   vpc_config {
-    subnet_ids = [var.public_subnet_az1_id, var.public_subnet_az2_id]
+    subnet_ids = [var.private_subnet_az1_id, var.private_subnet_az2_id]
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_eks_node_group" "node-grp" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "${var.customer}-Worker-Node-Group"
   node_role_arn   = var.worker_arn
-  subnet_ids      = [var.public_subnet_az1_id, var.public_subnet_az2_id]
+  subnet_ids      = [var.private_subnet_az1_id, var.private_subnet_az2_id]
   capacity_type   = "ON_DEMAND"
   disk_size       = 20
   instance_types  = [var.instance_size]

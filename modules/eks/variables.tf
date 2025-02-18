@@ -1,8 +1,8 @@
-variable "public_subnet_az1_id" {
+variable "private_subnet_az1_id" {
   type = string
 }
 
-variable "public_subnet_az2_id" {
+variable "private_subnet_az2_id" {
   type = string
 }
 
