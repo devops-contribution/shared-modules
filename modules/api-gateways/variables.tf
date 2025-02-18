@@ -15,5 +15,5 @@ variable "vpc_link_security_group_id" {
 }
 
 variable "subnet_ids" {
-  type = string
+  type = list(string)
 }
