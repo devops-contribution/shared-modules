@@ -15,5 +15,5 @@ output "internet_gateway" {
 }
 
 output "nat_gateway" {
-  value = 
+  value = aws_nat_gateway.nat_gw.id
 }
