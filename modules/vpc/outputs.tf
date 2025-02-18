@@ -11,7 +11,7 @@ output "private_subnet_az2_id" {
 }
 
 output "public_subnet_nat_cidr" {
-  value = aws_subnet.public_subnet_nat_cidr.id
+  value = aws_subnet.public_subnet.id
 }
 
 output "internet_gateway" {
