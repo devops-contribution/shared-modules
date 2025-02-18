@@ -9,40 +9,52 @@ terraform {
   }
 }
 
-
 resource "aws_security_group" "eks_security_group" {
-  name   = "SH security group"
+  name   = "eks-private-cluster-sg"
   vpc_id = var.vpc_id
 
+  # Allow all nodes to communicate within the cluster
   ingress {
-    description = "SSH access"
-    from_port   = 22
-    to_port     = 22
+    description = "Allow all traffic between EKS nodes"
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
-    cidr_blocks = var.ssh_access
+    cidr_blocks = [var.vpc_cidr]
   }
 
+  # Allow Kubernetes API Server Access within VPC only
   ingress {
-    description = "HTTP access"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = var.http_access
-  }
-
-  ingress {
-    description = "HTTPS port"
+    description = "Allow EKS API Server Access"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = var.http_access
+    cidr_blocks = [var.vpc_cidr]
   }
 
+  # Allow communication between worker nodes and control plane
+  ingress {
+    description = "Allow Kubernetes control plane to worker nodes"
+    from_port   = 1025
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+  }
+
+  # Allow CoreDNS and Kubelet communication
+  ingress {
+    description = "Allow CoreDNS and Kubelet communication"
+    from_port   = 53
+    to_port     = 53
+    protocol    = "udp"
+    cidr_blocks = [var.vpc_cidr]
+  }
+
+  # Allow outbound internet access (if needed for updates)
   egress {
-    description = "outbound access"
+    description = "Allow outbound traffic"
     from_port   = 0
     to_port     = 0
-    protocol    = -1
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
