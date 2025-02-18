@@ -3,11 +3,15 @@ output "vpc_id" {
 }
 
 output "private_subnet_az1_id" {
-  value = aws_subnet.public_subnet_az1.id
+  value = aws_subnet.private_subnet_az1.id
 }
 
 output "private_subnet_az2_id" {
-  value = aws_subnet.public_subnet_az2.id
+  value = aws_subnet.private_subnet_az2.id
+}
+
+output "public_subnet_nat_cidr" {
+  value = aws_subnet.public_subnet_nat_cidr.id
 }
 
 output "internet_gateway" {
