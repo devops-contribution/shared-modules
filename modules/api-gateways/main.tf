@@ -29,6 +29,13 @@ resource "aws_apigatewayv2_route" "root_route" {
   route_key  = "GET /"
   target     = "integrations/${aws_apigatewayv2_integration.root_integration.id}"
 }
+ 
+# Create a VPC Link
+resource "aws_apigatewayv2_vpc_link" "example" {
+  name               = "${var.customer}-vpc-link"
+  security_group_ids = [var.vpc_link_security_group_id]
+  subnet_ids         = []
+}
 
 # Integration for the "/" route
 resource "aws_apigatewayv2_integration" "root_integration" {
