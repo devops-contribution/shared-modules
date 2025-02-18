@@ -1,5 +1,5 @@
 variable "alb_dns" {
-  type = string
+  type = list(string)
 }
 
 variable "region" {
