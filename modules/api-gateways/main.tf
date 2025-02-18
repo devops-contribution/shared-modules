@@ -31,10 +31,10 @@ resource "aws_apigatewayv2_route" "root_route" {
 }
  
 # Create a VPC Link
-resource "aws_apigatewayv2_vpc_link" "example" {
+resource "aws_apigatewayv2_vpc_link" "vpc_link" {
   name               = "${var.customer}-vpc-link"
   security_group_ids = [var.vpc_link_security_group_id]
-  subnet_ids         = []
+  subnet_ids         = var.subnet_ids
 }
 
 # Integration for the "/" route
@@ -44,6 +44,8 @@ resource "aws_apigatewayv2_integration" "root_integration" {
   integration_uri        = var.alb_dns
   integration_method     = "GET"
   payload_format_version = "1.0"
+  connection_type        = "VPC_LINK"
+  connection_id          = aws_apigatewayv2_vpc_link.vpc_link.id
 }
 
 # Integration for the "/api/v1/hi" route
@@ -53,6 +55,8 @@ resource "aws_apigatewayv2_integration" "api_v1_hi_integration" {
   integration_uri        = "${var.alb_dns}/api/v1/hi"
   integration_method     = "GET"
   payload_format_version = "1.0"
+  connection_type        = "VPC_LINK"
+  connection_id          = aws_apigatewayv2_vpc_link.vpc_link.id
 }
 
 # "dev" stage for the HTTP API
